@@ -23,6 +23,44 @@ When using the CMS Module the configuration must match your configuration of the
 
 ![set-default-language](https://raw.githubusercontent.com/luyadev/luya/master/docs/guide1.0/img/set-default-language.jpg "Set CMS default language")
 
+## Example
+
+To add the language switcher menu to your frontend page you can use the **Language Switcher** widget which comes shipped with luya cms module.
+
+Go where you want to add the language switcher menu and add this code:
+```php
+ LanguageSwitcher::widget();
+```
+Now you have to implement the view for the language switcher widget. To do that go to **/view** folder inside your project and create **/widgets/language-switcher/index.php**.
+You can use this code inside **index.php** or create your own code.
+
+```html
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <?php foreach($items as $item): ?>
+                <li>
+                    <a class="<?php if ($item['isCurrent']): ?>langnav__link--current<?endif; ?>" href="<?php echo $item['href']; ?>"><?php echo $item['language']['name']; ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </li>
+</ul>
+```
+
+Now change **hidden** to **false** inside your config file.
+```php
+'composition' => [
+    'hidden' => false, // if its a single language page, you dont want to add the language prefix `en/my-test` would be `my-test` only.
+    ...
+],
+```
+All done. Your language switcher menu was implemented.
+
+
 @TODO
 
 + Language Switcher
